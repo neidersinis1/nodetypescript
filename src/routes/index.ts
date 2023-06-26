@@ -1,4 +1,4 @@
-import { Router } from "express";
+import express, { Router } from "express";
 import { readdirSync } from 'fs'
 
 const PATH_ROUTER = `${__dirname}`
@@ -16,9 +16,6 @@ readdirSync(PATH_ROUTER).filter((fileName) => {
     import(`./${cleanName}`).then((moduleRouter) => {
       router.use(`/${cleanName}`, moduleRouter.router)
     })
-    // router.use(`/${cleanName}`, (req, res) => {
-    //   res.send({})
-    // })
     console.log(`Se esta cargando la ruta...${cleanName}`)
   }
 })
