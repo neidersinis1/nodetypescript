@@ -2,7 +2,7 @@ import express from 'express';
 
 import { getUserByEmail, createUser } from '../services/users';
 import { authentication, random } from '../helpers';
-import { ValidationLoginError, ValidationPasswordError, ValidationRegisterError, handleHttp } from '../utils/error.handle';
+import { ValidationLoginError, ValidationRegisterError, handleHttp } from '../utils/error.handle';
 
 export const login = async (req: express.Request, res: express.Response) => {
   try {

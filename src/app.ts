@@ -13,7 +13,7 @@ const app = express();
 const server = http.createServer(app)
 
 app.use(cors({
-    credentials: true
+  credentials: true
 }));
 
 app.use(express.json());

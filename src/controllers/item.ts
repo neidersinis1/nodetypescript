@@ -7,7 +7,7 @@ import {
   updateCar,
   deleteCar,
 } from "../services/item";
-import { handleHttp } from "../utils/error.handle";
+import { ValidationGetError, ValidationPostError, ValidationUpdateError, handleHttp } from "../utils/error.handle";
 
 const getItem = async ({ params }: Request, res: Response) => {
   try {
@@ -16,7 +16,7 @@ const getItem = async ({ params }: Request, res: Response) => {
     const data = response ? response : "NOT_FOUND";
     res.send(data);
   } catch (e) {
-    handleHttp(res, "ERROR_GET_ITEM");
+    handleHttp(res, "ERROR_GET_ITEM", new ValidationGetError('ERROR_GET_ITEM'));
   }
 };
 
@@ -25,7 +25,7 @@ const getItems = async (req: Request, res: Response) => {
     const response = await getCars();
     res.send(response);
   } catch (e) {
-    handleHttp(res, "ERROR_GET_ITEMS");
+    handleHttp(res, "ERROR_GET_ITEMS", new ValidationGetError('ERROR_GET_ITEMS'));
   }
 };
 
@@ -35,7 +35,8 @@ const updateItem = async ({ params, body }: Request, res: Response) => {
     const response = await updateCar(id, body);
     res.send(response);
   } catch (e) {
-    handleHttp(res, "ERROR_UPDATE_ITEM");
+    handleHttp(res, "ERROR_Update_ITEM", new ValidationUpdateError('ERROR_Update_ITEM'));
+
   }
 };
 
@@ -44,7 +45,8 @@ const postItem = async ({ body }: Request, res: Response) => {
     const responseItem = await insertCar(body);
     res.send(responseItem);
   } catch (e) {
-    handleHttp(res, "ERROR_POST_ITEM", e);
+    handleHttp(res, "ERROR_Post_ITEM", new ValidationPostError('ERROR_Post_ITEM'));
+
   }
 };
 
@@ -54,7 +56,8 @@ const deleteItem = async ({ params }: Request, res: Response) => {
     const response = await deleteCar(id);
     res.send(response);
   } catch (e) {
-    handleHttp(res, "ERROR_DELETE_ITEM");
+    handleHttp(res, "ERROR_Delete_ITEM", new ValidationGetError('ERROR_Delete_ITEM'));
+
   }
 };
 

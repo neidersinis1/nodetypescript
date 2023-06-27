@@ -19,8 +19,18 @@ const createErrorFactory = (name: string) => {
 
 export const ConnectionError = createErrorFactory('ConnectionError')
 export const ValidationError = createErrorFactory('ValidationError')
+
 export const ValidationCredencialError = createErrorFactory('ValidationCredencialError')
-export const ValidationEmailError = createErrorFactory('ValidationEmailError')
-export const ValidationPasswordError = createErrorFactory('ValidationPasswordError')
 export const ValidationRegisterError = createErrorFactory('ValidationPasswordError')
 export const ValidationLoginError = createErrorFactory('ValidationLoginError')
+
+export const ValidationUpdateUserError = createErrorFactory('ValidationGetUserError')
+export const ValidationGetUsersError = createErrorFactory('ValidationGetUsersError')
+export const ValidationDeleteUserError = createErrorFactory('ValidationDeleteUserError')
+
+
+export const ValidationGetError = createErrorFactory('ValidationGetError')
+export const ValidationPostError = createErrorFactory('ValidationPostError')
+export const ValidationUpdateError = createErrorFactory('ValidationUpdateError')
+export const ValidationDeleteError = createErrorFactory('ValidationDeleteError')
+
