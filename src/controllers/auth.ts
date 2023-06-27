@@ -2,13 +2,18 @@ import express from 'express';
 
 import { getUserByEmail, createUser } from '../services/users';
 import { authentication, random } from '../helpers';
+import { ValidationLoginError, ValidationPasswordError, ValidationRegisterError, handleHttp } from '../utils/error.handle';
 
 export const login = async (req: express.Request, res: express.Response) => {
   try {
     const { email, password } = req.body;
 
-    if (!email || !password) {
-      return res.sendStatus(400);
+    if (!email && !password) {
+      return res.status(400).send('Email and password is required');
+    }
+
+    if (!password) {
+      return res.status(400).send('Password is required');
     }
 
     const user = await getUserByEmail(email).select('+authentication.salt +authentication.password');
@@ -32,7 +37,7 @@ export const login = async (req: express.Request, res: express.Response) => {
 
     return res.status(200).json(user).end();
   } catch (error) {
-    console.log(error);
+    handleHttp(res, "ERROR_LOGIN", new ValidationLoginError('ERROR_LOGIN'));
     return res.sendStatus(400);
   }
 };
@@ -42,13 +47,13 @@ export const register = async (req: express.Request, res: express.Response) => {
     const { email, password, username } = req.body;
 
     if (!email || !password || !username) {
-      return res.sendStatus(400);
+      return res.status(400).send('Email, username, Password is required');
     }
 
     const existingUser = await getUserByEmail(email);
 
     if (existingUser) {
-      return res.sendStatus(400);
+      return res.status(400).send('El Usuario ya existe');
     }
 
     const salt = random();
@@ -63,7 +68,7 @@ export const register = async (req: express.Request, res: express.Response) => {
 
     return res.status(200).json(user).end();
   } catch (error) {
-    console.log(error);
+    handleHttp(res, "ERROR_REGISTER", new ValidationRegisterError('ERROR_REGISTER'));
     return res.sendStatus(400);
   }
 }

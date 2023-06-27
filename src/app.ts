@@ -22,8 +22,8 @@ app.use(cookieParser())
 // app.use(bodyParser.json)
 app.use(router);
 
-db().then(() => console.log("DBConexion Ready"));
-server.listen(PORT, () => console.log(`El servidor esta corriendo por el puerto http://localhot:${PORT}`));
+db().then(() => console.log("DATABASE ==> Conexion Ready"));
+server.listen(PORT, () => console.log(`Server run on port http://localhot:${PORT}`));
 
 
 

@@ -1,4 +1,6 @@
 import express from 'express';
+import { ConnectionError, handleHttp } from "../utils/error.handle";
+
 
 import { deleteUserById, getUsers, getUserById } from '../services/users';
 
@@ -8,6 +10,12 @@ export const getAllUsers = async (req: express.Request, res: express.Response) =
 
     return res.status(200).json(users);
   } catch (error) {
+    if (error instanceof ConnectionError) {
+      setTimeout(() => {
+
+      })
+    }
+    handleHttp(res, "ERROR_GET_USERS");
     console.log(error);
     return res.sendStatus(400);
   }
@@ -21,6 +29,7 @@ export const deleteUser = async (req: express.Request, res: express.Response) =>
 
     return res.json(deletedUser);
   } catch (error) {
+    handleHttp(res, "ERROR_DELETE_USER");
     console.log(error);
     return res.sendStatus(400);
   }
@@ -42,6 +51,7 @@ export const updateUser = async (req: express.Request, res: express.Response) =>
 
     return res.status(200).json(user).end();
   } catch (error) {
+    handleHttp(res, "ERROR_UPDATE_USER");
     console.log(error);
     return res.sendStatus(400);
   }
