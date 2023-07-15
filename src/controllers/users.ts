@@ -1,8 +1,13 @@
 import express from 'express';
-import { ConnectionError, ValidationDeleteUserError, ValidationGetUsersError, ValidationUpdateUserError, handleHttp } from "../utils/error.handle";
+import {
+  ConnectionError,
+  ValidationDeleteUserError,
+  ValidationGetUsersError,
+  ValidationUpdateUserError,
+  handleHttp
+} from "../utils/error.handle";
 
-
-import { deleteUserById, getUsers, getUserById } from '../services/users';
+import { deleteUserById, getUsers, getUserById, getUser } from '../services/users';
 
 export const getAllUsers = async (req: express.Request, res: express.Response) => {
   try {
@@ -10,14 +15,22 @@ export const getAllUsers = async (req: express.Request, res: express.Response) =
 
     return res.status(200).json(users);
   } catch (error) {
-    if (error instanceof ConnectionError) {
-      setTimeout(() => {
-
-      })
-    }
-    handleHttp(res, "ERROR_GET_USER", new ValidationGetUsersError('ERROR_GET_USER'));
-    console.log(error);
+    handleHttp(res, "ERROR_GET_USERS", new ValidationGetUsersError('ERROR_GET_USERS'));
     return res.sendStatus(400);
+  }
+};
+
+export const getAllUser = async (req: express.Request, res: express.Response) => {
+  try {
+    const { id } = req.params;
+    if (!id) res.status(400)
+
+    const user = await getUser(id);
+
+    return res.status(200).json(user);
+  } catch (error) {
+    handleHttp(res.status(400), "ERROR_GET_USER", new ValidationGetUsersError('ERROR_GET_USER'));
+    return res.status(400);
   }
 };
 

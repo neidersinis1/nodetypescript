@@ -5,7 +5,7 @@ import { router } from "./routes";
 import db from "./config/mongo";
 import compression from "compression";
 import cookieParser from "cookie-parser";
-import bodyParser from "body-parser";
+// import bodyParser from "body-parser";
 import http from 'http'
 
 const PORT = process.env.PORT || 3002;

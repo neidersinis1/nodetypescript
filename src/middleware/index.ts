@@ -2,6 +2,7 @@ import express from 'express';
 import { merge, get } from 'lodash';
 
 import { getUserBySessionToken } from '../services/users';
+import { MiddlewareError, handleHttp } from '../utils/error.handle';
 
 export const isAuthenticated = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
   try {
@@ -21,7 +22,7 @@ export const isAuthenticated = async (req: express.Request, res: express.Respons
 
     return next();
   } catch (error) {
-    console.log(error);
+    handleHttp(res.status(400), "ERROR_MIDDLEWARE_USER", new MiddlewareError('ERROR_MIDDLEWARE_USER'));
     return res.sendStatus(400);
   }
 }
@@ -41,7 +42,7 @@ export const isOwner = async (req: express.Request, res: express.Response, next:
 
     next();
   } catch (error) {
-    console.log(error);
+    handleHttp(res.status(400), "ERROR_MIDDLEWARE_USER", new MiddlewareError('ERROR_MIDDLEWARE_USER'));
     return res.sendStatus(400);
   }
 }
