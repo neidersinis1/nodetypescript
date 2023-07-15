@@ -1,4 +1,5 @@
-import "dotenv/config";
+require("dotenv/config");
+// import "dotenv/config";
 import { connect } from "mongoose";
 
 async function dbConnect(): Promise<void> {
