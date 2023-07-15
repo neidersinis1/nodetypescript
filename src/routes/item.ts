@@ -20,4 +20,4 @@ router.put("/:id", updateItem);
 
 router.delete("/:id", deleteItem);
 
-export default router
+export { router };
