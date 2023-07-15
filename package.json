@@ -5,6 +5,7 @@
   "scripts": {
     "start": "node ./src/app.ts",
     "dev": "nodemon ./src/app.ts",
+    "watch": "tsc -p tsconfig.json --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
