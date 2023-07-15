@@ -2,7 +2,7 @@
 require("dotenv/config");
 const express = require("express");
 const cors = require("cors");
-import { router } from "./routes"
+const router = require("./routes");
 const db = require("./config/mongo");
 const compression = require("compression");
 const cookieParser = require("cookie-parser");
