@@ -1,13 +1,13 @@
 // import "dotenv/config";
 require("dotenv/config");
-import express from "express";
-import cors from "cors";
-import { router } from "./routes";
-import db from "./config/mongo";
-import compression from "compression";
-import cookieParser from "cookie-parser";
+const express = require("express");
+const cors = require("cors");
+const { router } = require("./routes");
+const db = require("./config/mongo");
+const compression = require("compression");
+const cookieParser = require("cookie-parser");
 // import bodyParser from "body-parser";
-import http from 'http'
+const http = require('http')
 
 const PORT = process.env.PORT || 3002;
 const app = express();
